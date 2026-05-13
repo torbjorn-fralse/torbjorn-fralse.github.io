@@ -378,6 +378,9 @@ section {
   overflow: visible;
 }
 
+.work-visual {
+  align-self: start;
+}
 .work-visual svg { width: 100%; height: 100%; display: block; }
 
 .excerpt {
@@ -615,6 +618,160 @@ footer {
 .chess-widget-label { color: var(--ink-dim); text-transform: uppercase; font-size: 0.65rem; }
 .chess-widget-rating { color: var(--gold); font-size: 1.4rem; font-weight: 500; }
 
+
+.status-bar-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.5rem 0;
+}
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.5rem;
+  position: relative;
+}
+.status-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: var(--rule);
+}
+.status-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+.status-value {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  font-weight: 500;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .status-bar { grid-template-columns: repeat(2, 1fr); gap: 1.25rem 0; }
+  .status-item:nth-child(2)::after { display: none; }
+}
+
+
+.brewing-log { display: block; }
+.brewing-log > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: rgba(201, 165, 89, 0.05);
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.2s ease;
+}
+.brewing-log > summary::-webkit-details-marker { display: none; }
+.brewing-log > summary::marker { content: ''; }
+.brewing-log > summary:hover { background: rgba(201, 165, 89, 0.14); }
+.brewing-log > summary::after {
+  content: '+';
+  font-size: 1.2rem;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.2s ease;
+}
+.brewing-log[open] > summary::after {
+  content: '×';
+  font-size: 1.3rem;
+}
+.brewing-log-content {
+  margin: 2rem auto 0;
+  padding: 2.2rem 2.4rem 2rem;
+  border: 1px solid var(--rule);
+  background: rgba(0, 0, 0, 0.35);
+  max-width: 560px;
+  position: relative;
+}
+.brewing-log-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  opacity: 0.7;
+}
+.brewing-log-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin: 0 0 1.2rem;
+  text-transform: uppercase;
+}
+.brewing-log-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 1.8rem 0 0.85rem;
+}
+.brewing-log-spec {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.55rem 2rem;
+  margin: 0;
+}
+.brewing-log-spec dt {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.brewing-log-spec dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+.brewing-log-recipe {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.brewing-log-recipe li { margin-bottom: 0.3rem; }
+.brewing-log-notes {
+  color: var(--ink);
+  line-height: 1.75;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+
 </style>
 </head>
 <body>
@@ -840,6 +997,28 @@ footer {
 
 
 
+
+<section class="status-bar-section">
+  <div class="status-bar">
+    <div class="status-item">
+      <span class="status-label">Ziusudra</span>
+      <span class="status-value">Writing</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Megaliths</span>
+      <span class="status-value">Writing</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Liberty Lager</span>
+      <span class="status-value">Batch №1</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Chess Rapid</span>
+      <span class="status-value" id="statusRapid">—</span>
+    </div>
+  </div>
+</section>
+
 <section id="projects" class="projects">
   <div class="projects-inner">
         <div class="work-card">
@@ -900,7 +1079,29 @@ footer {
         <p class="work-subtitle">A small-batch lager refined by trial, not committee.</p>
         <p class="work-description">Notes from a home brewer working toward one well-made beer. The yeast does not take input. Fermentation logs, hop ratios, malt experiments, and what comes out of testing the same recipe over enough iterations to call it done. A name chosen for what brewing actually is: a thing made for yourself, on your own time, by your own hand.</p>
         <div class="work-actions">
-          <a href="/liberty-lager" class="btn btn-primary">Read the brewing log</a>
+          <details class="brewing-log">
+            <summary>
+              <span class="brewing-log-label">Read the brewing log</span>
+            </summary>
+            <div class="brewing-log-content">
+              <h4 class="brewing-log-title">Batch №1</h4>
+              <dl class="brewing-log-spec">
+                <dt>Started</dt><dd>[ date ]</dd>
+                <dt>Style</dt><dd>[ Pilsner / Helles / Vienna ]</dd>
+                <dt>Volume</dt><dd>[ 20 L ]</dd>
+                <dt>OG / FG</dt><dd>[ 1.048 / 1.010 ]</dd>
+                <dt>ABV</dt><dd>[ 5.0% ]</dd>
+              </dl>
+              <h4 class="brewing-log-section-title">Recipe</h4>
+              <ul class="brewing-log-recipe">
+                <li>[ Pilsner malt — 4.0 kg ]</li>
+                <li>[ Saaz hops — 30 g ]</li>
+                <li>[ Lager yeast — W-34/70 ]</li>
+              </ul>
+              <h4 class="brewing-log-section-title">Notes</h4>
+              <p class="brewing-log-notes">[ Fermentation, lagering, tasting notes go here. Replace each bracketed placeholder with the real values. ]</p>
+            </div>
+          </details>
         </div>
       </div>
       <div class="work-visual" aria-hidden="true">
@@ -914,20 +1115,12 @@ footer {
 
     <div class="work-card reversed">
       <div class="work-text">
-        <div class="work-meta">Chess &nbsp;&middot;&nbsp; Ongoing</div>
+        <div class="work-meta">Chess &nbsp;&middot;&nbsp; Just Started</div>
         <h3 class="work-title">Road to 2000 Elo</h3>
-        <p class="work-subtitle">A documented climb through the rating ladder.</p>
-        <p class="work-description">A serious attempt at the 2000 mark on chess.com. Tracking opening repertoire, tactical training, game analyses, and the slow accumulation of pattern recognition that separates club players from the next tier. Progress notes posted as they happen. The board is small. The climb is not.</p>
+        <p class="work-subtitle">A documented climb through the rapid rating ladder.</p>
+        <p class="work-description">The project has begun. The goal is the rapid rating shown in the top bar reaching 2000. Notes on openings, tactics, endgame studies, and what the slow accumulation of pattern recognition actually feels like over a long stretch of games.</p>
         <div class="work-actions">
-          <a href="https://www.chess.com/member/YOUR_USERNAME" class="btn btn-primary" target="_blank" rel="noopener">View on chess.com</a>
-          <a href="/chess" class="btn">Training notes</a>
-        </div>
-        <!-- Optional: chess.com profile widget powered by their public API.
-             Replace YOUR_USERNAME below with your chess.com handle to activate. -->
-        <div class="chess-widget" data-username="YOUR_USERNAME" hidden>
-          <div class="chess-widget-stat"><span class="chess-widget-label">Rapid</span> <span class="chess-widget-rating" data-stat="rapid">—</span></div>
-          <div class="chess-widget-stat"><span class="chess-widget-label">Blitz</span> <span class="chess-widget-rating" data-stat="blitz">—</span></div>
-          <div class="chess-widget-stat"><span class="chess-widget-label">Bullet</span> <span class="chess-widget-rating" data-stat="bullet">—</span></div>
+          <a href="https://www.chess.com/member/torbjorn-fralse" class="btn btn-primary" target="_blank" rel="noopener">View profile on chess.com</a>
         </div>
       </div>
       <div class="work-visual" aria-hidden="true">
@@ -977,7 +1170,7 @@ footer {
     var widget = document.querySelector('.chess-widget');
     if (!widget) return;
     var username = widget.getAttribute('data-username');
-    if (!username || username === 'YOUR_USERNAME') return;
+    if (!username || username === 'torbjorn-fralse') return;
     fetch('https://api.chess.com/pub/player/' + username + '/stats')
       .then(function(r) { return r.json(); })
       .then(function(data) {

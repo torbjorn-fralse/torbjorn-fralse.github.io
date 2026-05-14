@@ -1165,24 +1165,25 @@ footer {
 </footer>
 
 
+
+
 <script>
   (function() {
-    var widget = document.querySelector('.chess-widget');
-    if (!widget) return;
-    var username = widget.getAttribute('data-username');
-    if (!username || username === 'torbjorn-fralse') return;
-    fetch('https://api.chess.com/pub/player/' + username + '/stats')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        widget.hidden = false;
-        ['rapid', 'blitz', 'bullet'].forEach(function(mode) {
-          var key = 'chess_' + mode;
-          var rating = data[key] && data[key].last ? data[key].last.rating : '—';
-          var el = widget.querySelector('[data-stat="' + mode + '"]');
-          if (el) el.textContent = rating;
-        });
+    var statusEl = document.getElementById('statusRapid');
+    if (!statusEl) return;
+    fetch('https://api.chess.com/pub/player/torbjorn-fralse/stats')
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
       })
-      .catch(function() { /* silently fail */ });
+      .then(function(data) {
+        if (data.chess_rapid && data.chess_rapid.last && data.chess_rapid.last.rating) {
+          statusEl.textContent = data.chess_rapid.last.rating;
+        }
+      })
+      .catch(function(err) {
+        console.error('Chess rating fetch failed:', err);
+      });
   })();
 </script>
 
